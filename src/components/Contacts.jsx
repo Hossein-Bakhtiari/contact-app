@@ -10,7 +10,7 @@ function Contacts() {
   })
 
   const [contacts , setContacts ] = useState([]);
-
+  const [alert , setAlert] = useState("");
   const changHandlar = (event) => {
     const name = event.target.name
     const value = event.target.value
@@ -19,6 +19,18 @@ function Contacts() {
   }
 
   const addHandler = () => {
+       
+    if(
+        !contact.name ||
+        !contact.lastName ||
+        !contact.email ||
+        !contact.phone
+    ) {
+            setAlert("pleas enter valid data")
+            return;
+       }
+       setAlert("");
+
        setContacts((contacts) => ([ ...contacts , contact ]))
        setContact( {
         name:"",
@@ -67,6 +79,9 @@ return (
         />
 
         <button onClick={addHandler}>Add</button>
+        <div>
+            {alert && <p>{alert}</p>}
+        </div>
         <ContactList contacts={contact}/>
     </div>
   )
