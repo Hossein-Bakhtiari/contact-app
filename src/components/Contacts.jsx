@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ContactList from './ContactList';
 import inputs from '../constant/inputs';
 import { v4 } from 'uuid';
+import styles from "./Contacts.module.css"
 
 
 
@@ -31,7 +32,7 @@ function Contacts() {
         !contact.email ||
         !contact.phone
     ) {
-            setAlert("pleas enter valid data")
+            setAlert("Please enter valid data")
             return;
        }
        setAlert("");
@@ -56,8 +57,8 @@ function Contacts() {
   
 return (
     
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.form}>
       {
           inputs.map((input , index) => (
             <input 
@@ -75,7 +76,7 @@ return (
 
         <button onClick={addHandler}>Add</button>
       </div>
-        <div>
+        <div className={styles.alert}>
             {alert && <p>{alert}</p>}
         </div>
         <ContactList contacts={contacts} deleteHandler={deleteHandler}/>
