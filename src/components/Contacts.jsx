@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import ContactList from './ContactList';
+import inputs from '../constant/inputs';
+import { v4 } from 'uuid';
+
+
 
 function Contacts() {
   const [contact , setContact ] = useState({
+    id:"",
     name:"",
     lastName: "",
     email: "",
@@ -31,8 +36,10 @@ function Contacts() {
        }
        setAlert("");
 
-       setContacts((contacts) => ([ ...contacts , contact ]))
+       const newContact = {...contact , id: v4()}
+       setContacts((contacts) => ([ ...contacts , newContact ]))
        setContact( {
+        id:"",
         name:"",
         lastName: "",
         email: "",
@@ -46,43 +53,28 @@ function Contacts() {
 return (
     
     <div>
-        <input 
-        type="text" 
-        placeholder='Name' 
-        name='name' 
-        value={contact.name} 
-        onChange={changHandlar} 
-        />
+      <div>
+      {
+          inputs.map((input , index) => (
+            <input 
+            key={index}
+            type={input.type}
+            name={input.name}
+            placeholder={input.placeholder}
+            value={contact[input.name]}
+            onChange={changHandlar}
+            />
+          ))
+        }
+        
 
-        <input 
-        type="text" 
-        placeholder='Last Name' 
-        name='lastName' 
-        value={contact.lastName} 
-        onChange={changHandlar} 
-        />
-
-        <input 
-        type="email" 
-        placeholder='Email' 
-        name='email' 
-        value={contact.email} 
-        onChange={changHandlar} 
-        />
-
-        <input 
-        type="phone" 
-        placeholder='Phone'
-        name='phone' 
-        value={contact.phone} 
-        onChange={changHandlar} 
-        />
 
         <button onClick={addHandler}>Add</button>
+      </div>
         <div>
             {alert && <p>{alert}</p>}
         </div>
-        <ContactList contacts={contact}/>
+        <ContactList contacts={contacts}/>
     </div>
   )
 }
