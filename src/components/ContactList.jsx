@@ -1,7 +1,7 @@
 import React from 'react'
 import ContactItem from './ContactItem'
 
-function ContactList({contacts}) {
+function ContactList({contacts , deleteHandler}) {
   console.log(contacts)
   return (
     <div>
@@ -10,7 +10,7 @@ function ContactList({contacts}) {
             contacts.length ? (
               <ul>
               {contacts.map((contact) => (
-                <ContactItem key={contact.id} data={contact}/>
+                <ContactItem key={contact.id} data={contact} deleteHandler={deleteHandler}/>
               ))}
             </ul>
             ) : (
